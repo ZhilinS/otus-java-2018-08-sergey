@@ -10,11 +10,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.8</version>
-        </dependency>
-        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>26.0-jre</version>
@@ -85,15 +80,24 @@
                 <configuration>
                     <proguardVersion>6.0.2</proguardVersion>
                     <obfuscate>true</obfuscate>
+                    <injar>${project.build.finalName}-jar-with-dependencies.jar</injar>
                     <outjar>L01-obfuscated.jar</outjar>
 
                     <options>
                         <option>-allowaccessmodification</option>
                         <option>-keep public class ru.otus.Main {public static void main(java.lang.String[]);}</option>
+                        <option>-keep public class com.google.common.** {*;}</option>
+                        <option>-dontwarn</option>
                     </options>
                     <libs>
                         <lib>${java.home}/lib/rt.jar</lib>
                     </libs>
+
+                    <archive>
+                        <manifest>
+                            <mainClass>ru.otus.Main</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
 
