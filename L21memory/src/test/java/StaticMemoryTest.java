@@ -9,7 +9,7 @@ public class StaticMemoryTest {
     @Test
     public void testObjectSizes() throws Exception {
         assertEquals(16, StaticMemory.sizeOf(new Object()));
-        assertEquals(32, StaticMemory.sizeOf(""));
+        assertEquals(40, StaticMemory.sizeOf(""));
         assertEquals(24, StaticMemory.sizeOf(new int[]{}));
     }
 
