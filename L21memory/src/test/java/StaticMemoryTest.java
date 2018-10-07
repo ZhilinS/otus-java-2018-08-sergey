@@ -17,4 +17,9 @@ public class StaticMemoryTest {
     public void testComplexObjectSizes() throws Exception {
         assertEquals(24, StaticMemory.sizeOf(new HeapMeasure.A((byte) 1, (byte) 2, (byte) 3)));
     }
+
+    @Test
+    public void testPrimitive() throws Exception {
+        assertEquals(24, StaticMemory.sizeOf(1));
+    }
 }
