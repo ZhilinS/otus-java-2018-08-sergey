@@ -32,9 +32,6 @@
                         <manifest>
                             <mainClass>ru.otus.HeapMeasure</mainClass>
                         </manifest>
-                        <!--<manifestEntries>-->
-                            <!--<Premain-Class>ru.otus.AgentMemoryCounter</Premain-Class>-->
-                        <!--</manifestEntries>-->
                     </archive>
                 </configuration>
             </plugin>
@@ -61,9 +58,6 @@
                         <manifest>
                             <mainClass>ru.otus.HeapMeasure</mainClass>
                         </manifest>
-                        <!--<manifestEntries>-->
-                            <!--<Premain-Class>ru.otus.AgentMemoryCounter</Premain-Class>-->
-                        <!--</manifestEntries>-->
                     </archive>
                 </configuration>
             </plugin>
