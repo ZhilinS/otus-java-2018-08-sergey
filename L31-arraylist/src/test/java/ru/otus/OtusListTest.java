@@ -1,9 +1,14 @@
+package ru.otus;
+
 import java.util.ArrayList;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import ru.otus.OtusList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@Ignore("List is recreated on every test method.")
 public class OtusListTest {
 
     OtusList<String> list;

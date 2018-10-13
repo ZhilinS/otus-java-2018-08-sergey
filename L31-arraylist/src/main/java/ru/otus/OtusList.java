@@ -1,3 +1,5 @@
+package ru.otus;
+
 import java.util.Arrays;
 import java.util.Collection;
 import static java.util.Objects.nonNull;

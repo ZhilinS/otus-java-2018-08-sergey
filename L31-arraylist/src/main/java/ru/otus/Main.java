@@ -1,3 +1,5 @@
+package ru.otus;
+
 import java.util.ArrayList;
 
 public class Main {
