@@ -1,99 +1,65 @@
 package ru.otus;
 
 import java.util.ArrayList;
-import org.junit.Before;
-import org.junit.Ignore;
+import java.util.Collections;
 import org.junit.Test;
-import ru.otus.OtusList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-@Ignore("List is recreated on every test method.")
 public class OtusListTest {
 
-    OtusList<String> list;
+    @Test
+    public void testCopy() {
+        final OtusList<String> dest = new OtusList<>(4);
+        dest.add("To be replaced");
+        dest.add("To be replaced");
+        dest.add("To be replaced");
+        dest.add("To be replaced");
 
-    @Before
-    public void setUp() {
-        this.list = new OtusList<String>();
+        final ArrayList<String> src = new ArrayList<>();
+        src.add("Simple");
+        src.add("String");
+        src.add("To");
+        src.add("add");
+
+        Collections.copy(dest, src);
+
+        assertEquals(src.toArray(), dest.toArray());
     }
 
     @Test
-    public void shouldAdd() {
-        list.add("First");
-        list.add("Second");
-        list.add("Third");
+    public void testSort() {
+        final OtusList<String> dest = new OtusList<>();
+        dest.add("What a wonderful code");
+        dest.add("Not exactly");
+        dest.add("A string should come first");
+        dest.add("Adventure time should come first!");
 
-        System.out.println("shouldAdd");
-        System.out.println(list);
-        System.out.println("==========");
+        Collections.sort(dest);
 
-        assertEquals(3, list.size());
+        assertEquals("A string should come first", dest.get(0));
+        assertEquals("Adventure time should come first!", dest.get(1));
+        assertEquals("Not exactly", dest.get(2));
+        assertEquals("What a wonderful code", dest.get(3));
     }
 
     @Test
-    public void shouldRemove() {
-        list.remove(1);
-        list.remove("Third");
+    public void testAddAll() {
+        final OtusList<String> dest = new OtusList<>();
+        dest.add("What a wonderful code");
+        dest.add("Not exactly");
+        dest.add("A string should come first");
+        dest.add("Adventure time should come first!");
 
-        System.out.println("shouldRemove");
-        System.out.println(list);
-        System.out.println("==========");
+        Collections.addAll(dest, "First added", "Second added");
 
-        assertEquals(1, list.size());
-    }
+        final ArrayList<String> src = new ArrayList<>();
+        src.add("What a wonderful code");
+        src.add("Not exactly");
+        src.add("A string should come first");
+        src.add("Adventure time should come first!");
+        src.add("First added");
+        src.add("Second added");
 
-    @Test
-    public void shouldAddAll() {
-        list.addAll(
-            new ArrayList<String>() {{
-                add("FIRST FROM ARRAYLIST");
-                add("SECOND FROM ARRAYLIST");
-            }}
-        );
-
-        System.out.println("shouldAddAll");
-        System.out.println(list);
-        System.out.println("==========");
-
-        assertEquals(3, list.size());
-    }
-
-    @Test
-    public void shouldAddInMiddle() {
-        list.add(2, "Middle element");
-
-        System.out.println("shouldAddInMiddle");
-        System.out.println(list);
-        System.out.println("==========");
-
-        assertEquals(4, list.size());
-    }
-
-    @Test
-    public void checkArrayExtension() {
-        list.add("Fifth");
-        list.add("Sixth");
-        list.add("Seventh");
-        list.add("Eighth");
-        list.add("Nine");
-        list.add("Tenth");
-        list.add("Eleventh");
-
-        System.out.println("checkArrayExtension");
-        System.out.println(list);
-        System.out.println("==========");
-
-        assertEquals(11, list.size());
-    }
-
-    @Test
-    public void checkContains() {
-        assertTrue(list.contains("Fifth"));
-    }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void shouldThrowException() {
-        list.add(200, "NOPE");
+        assertEquals(src.toArray(), dest.toArray());
     }
 }
