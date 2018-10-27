@@ -33,8 +33,8 @@ public class StaticMemory {
             return 0;
         }
 
-        int referenceSize = jvm64bit ? 8 : 4;
-        int headerSize = 8;
+//        int referenceSize = jvm64bit ? 8 : 4;
+        int headerSize = jvm64bit ? 16 : 8;
 
         ObjectWrapper objectWrapper = new ObjectWrapper(o);
 
@@ -44,7 +44,7 @@ public class StaticMemory {
 
         visited.add(objectWrapper);
 
-        long size = referenceSize;
+        long size = 0;
 
         Class clazz = o.getClass();
 
@@ -115,7 +115,7 @@ public class StaticMemory {
             boolean jvm64bit,
             Set<ObjectWrapper> visited
     ) throws IllegalAccessException {
-        int size = 12; //12 - array header size
+        int size = 20; //array header size (16) + length variable (4)
 
         if (clazz == long[].class) {
             long[] objs = (long[]) o;
