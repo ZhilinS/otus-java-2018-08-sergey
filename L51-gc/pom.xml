@@ -7,15 +7,35 @@
     <groupId>ru.otus</groupId>
     <artifactId>gc</artifactId>
     <version>1.0</version>
+
+    <name>L51-gc</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
     <build>
+        <finalName>${name}</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.0</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <archive>
+                        <manifest>
+                            <mainClass>ru.otus.Main</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
