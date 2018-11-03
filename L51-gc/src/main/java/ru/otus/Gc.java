@@ -60,6 +60,13 @@ public class Gc {
             );
         }
 
+        try {
+            Thread.sleep(1_000);
+        } catch (InterruptedException e) {
+            System.err.println("Couldn't sleep");
+            e.printStackTrace();
+        }
+
         System.out.println(b.toString());
     }
 

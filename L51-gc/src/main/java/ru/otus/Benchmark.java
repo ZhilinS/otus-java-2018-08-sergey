@@ -11,7 +11,7 @@ public class Benchmark {
         Random rand = new Random();
 
         while (true) {
-            int count = 1 * 1000 * 1000;
+            int count = 5 * 10000;
 
             for (int i = 0; i < count; i++) {
                 list.add(new Cargo(rand.nextLong()));
