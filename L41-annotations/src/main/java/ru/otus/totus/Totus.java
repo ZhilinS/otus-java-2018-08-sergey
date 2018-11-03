@@ -2,6 +2,8 @@ package ru.otus.totus;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.reflections.Reflections;
@@ -9,6 +11,7 @@ import org.reflections.scanners.SubTypesScanner;
 import ru.otus.totus.annotations.After;
 import ru.otus.totus.annotations.Before;
 import ru.otus.totus.annotations.Test;
+import static java.util.Objects.nonNull;
 
 public class Totus {
 
@@ -20,38 +23,55 @@ public class Totus {
         final Method[] methods = target.getDeclaredMethods();
 
         if (accessible(target)) {
-            final Object o = target.newInstance();
-
             Method before = null;
             Method after = null;
+            List<Method> testMethods = new ArrayList<>();
 
             for (Method method : methods) {
                 if (method.isAnnotationPresent(Before.class)) {
+                    if (nonNull(before)) {
+                        throw new RuntimeException(
+                            "Before annotation is already present." +
+                                "Couldn't be more than one in class."
+                        );
+                    }
                     before = method;
                 }
 
                 if (method.isAnnotationPresent(After.class)) {
+                    if (nonNull(after)) {
+                        throw new RuntimeException(
+                            "After annotation is already present." +
+                                "Couldn't be more than one in class."
+                        );
+                    }
                     after = method;
                 }
 
                 if (method.isAnnotationPresent(Test.class)) {
-                    try {
-                        total.incrementAndGet();
+                    testMethods.add(method);
+                }
+            }
 
-                        if (before != null) {
-                            before.invoke(o);
-                        }
+            for (Method test : testMethods) {
+                final Object o = target.newInstance();
 
-                        method.invoke(o);
+                try {
+                    total.incrementAndGet();
 
-                        if (after != null) {
-                            after.invoke(o);
-                        }
-                    } catch (Exception e) {
-                        System.err.println("Test failed");
-                        e.printStackTrace();
-                        failed.incrementAndGet();
+                    if (before != null) {
+                        before.invoke(o);
                     }
+
+                    test.invoke(o);
+
+                    if (after != null) {
+                        after.invoke(o);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Test failed");
+                    e.printStackTrace();
+                    failed.incrementAndGet();
                 }
             }
         }
