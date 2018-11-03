@@ -67,6 +67,7 @@ public class Gc {
         Set<String> young = new HashSet<String>(3);
         young.add("PS Scavenge");
         young.add("ParNew");
+        young.add("Copy");
         young.add("G1 Young Generation");
         return young;
     }
@@ -75,6 +76,7 @@ public class Gc {
         Set<String> old = new HashSet<String>(3);
         old.add("PS MarkSweep");
         old.add("ConcurrentMarkSweep");
+        old.add("MarkSweepCompact");
         old.add("G1 Old Generation");
         return old;
     }
