@@ -41,3 +41,5 @@ hs_err_pid*
 #common
 **/out
 **.class
+
+dump/
