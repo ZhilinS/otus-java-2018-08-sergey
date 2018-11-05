@@ -203,11 +203,6 @@ public class OtusList<E> implements List<E> {
         return -1;
     }
 
-    @Override
-    public String toString() {
-        return Arrays.toString(elements);
-    }
-
     private class OtusListItr implements ListIterator<E> {
 
         int cursor;

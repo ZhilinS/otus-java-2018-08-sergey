@@ -1,7 +1,7 @@
 package ru.otus;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 public class Main {
 
@@ -12,17 +12,17 @@ public class Main {
         strings.add("First");
         strings.add("Second");
         strings.add("Third");
-        System.out.println(strings + "\n===============");
+        System.out.println(Arrays.toString(strings.toArray()) + "\n===============");
 
         System.out.println("Check remove from array");
         strings.remove(1);
         strings.remove("Third");
-        System.out.println(strings + "\n===============");
+        System.out.println(Arrays.toString(strings.toArray()) + "\n===============");
 
         System.out.println("Check addition in the head of an array and in the middle");
         strings.add(0, "New first");
         strings.add(0, "New middle element");
-        System.out.println(strings + "\n===============");
+        System.out.println(Arrays.toString(strings.toArray()) + "\n===============");
 
         System.out.println("Check array extension");
         strings.add("Fourth");
@@ -33,7 +33,7 @@ public class Main {
         strings.add("Nine");
         strings.add("Nine");
         strings.add("Nine");
-        System.out.println(strings + "\n===============");
+        System.out.println(Arrays.toString(strings.toArray()) + "\n===============");
 
         System.out.println("Check contains, size, addAll methods");
         System.out.println("Should contain: " + strings.contains("Fifth"));
@@ -43,6 +43,6 @@ public class Main {
             add("FIRST FROM COLLECTION");
             add("SECOND FROM COLLECTION");
         }});
-        System.out.println(strings + "\n===============");
+        System.out.println(Arrays.toString(strings.toArray()) + "\n===============");
     }
 }
