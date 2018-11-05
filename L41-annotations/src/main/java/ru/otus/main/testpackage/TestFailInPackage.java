@@ -1,6 +1,3 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
 package ru.otus.main.testpackage;
 
 import ru.otus.totus.annotations.After;

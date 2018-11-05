@@ -1,7 +1,6 @@
 package ru.otus.main;
 
 import java.lang.reflect.InvocationTargetException;
-import ru.otus.main.testpackage.TestFailInPackage;
 import ru.otus.totus.Totus;
 
 public class Main {
@@ -13,6 +12,6 @@ public class Main {
         InvocationTargetException
     {
         Totus.testClass(TestClass.class);
-        Totus.testPackage("ru.otus.main.testpackage");
+        Totus.testPackage("ru.otus");
     }
 }
