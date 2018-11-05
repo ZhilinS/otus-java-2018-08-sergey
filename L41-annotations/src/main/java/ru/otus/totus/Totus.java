@@ -15,7 +15,7 @@ import static java.util.Objects.nonNull;
 
 public class Totus {
 
-    public static void testClass(final String name) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public static void testClass(final String name) throws ClassNotFoundException, IllegalAccessException, InstantiationException, InvocationTargetException {
         AtomicInteger failed = new AtomicInteger(0);
         AtomicInteger total = new AtomicInteger(0);
 
@@ -72,6 +72,10 @@ public class Totus {
                     System.err.println("Test failed");
                     e.printStackTrace();
                     failed.incrementAndGet();
+
+                    if (after != null) {
+                        after.invoke(o);
+                    }
                 }
             }
         }
@@ -99,9 +103,11 @@ public class Totus {
                 )
             );
         }
+
+        System.out.println("====================");
     }
 
-    public static void testClass(final Class<?> claz) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
+    public static void testClass(final Class<?> claz) throws IllegalAccessException, InstantiationException, ClassNotFoundException, InvocationTargetException {
         Totus.testClass(claz.getName());
     }
 
