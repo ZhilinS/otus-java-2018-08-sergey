@@ -1,6 +1,3 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
 package ru.otus.error;
 
 public class EmptyCacheElementException extends RuntimeException {

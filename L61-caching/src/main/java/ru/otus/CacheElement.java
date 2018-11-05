@@ -1,6 +1,3 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
 package ru.otus;
 
 import java.lang.ref.SoftReference;
@@ -31,11 +28,10 @@ public class CacheElement<T> {
     }
 
     public T get(String key) throws EmptyCacheElementException {
-        final SoftReference<T> ref = this.element;
-        if (isNull(ref.get())) {
+        if (isNull(this.element.get())) {
             throw new EmptyCacheElementException(key);
         }
-        return ref.get();
+        return this.element.get();
     }
 
     private void invalidate() {
