@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import ru.otus.error.EmptyCacheElementException;
 import static java.util.Objects.isNull;
 
-public class CacheElement<T> {
+public final class CacheElement<T> {
 
     private SoftReference<T> element;
 
