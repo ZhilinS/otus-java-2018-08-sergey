@@ -23,5 +23,7 @@ public class Main {
         access.getOrDefault("two", "Second access element");
         Thread.sleep(1000);
         System.out.println(access.get("two"));
+
+        System.gc();
     }
 }
