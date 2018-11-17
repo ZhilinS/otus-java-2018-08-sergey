@@ -6,6 +6,7 @@ import org.junit.Test;
 import ru.otus.Atm;
 import ru.otus.Rubles;
 import ru.otus.Type;
+import ru.otus.exception.WithdrawException;
 import ru.otus.withdraw.Rub;
 import static com.google.common.collect.Sets.newHashSet;
 import static org.junit.Assert.assertEquals;
@@ -50,5 +51,15 @@ public class TestAtm {
         this.atm.deposit(new Rub(2300));
 
         assertEquals(result, this.atm.balance());
+    }
+
+    @Test(expected = WithdrawException.class)
+    public void shouldNotWithdrawMore() {
+        this.atm.withdraw(new Rub(20000));
+    }
+
+    @Test(expected = WithdrawException.class)
+    public void shouldNotWithdrawForNonDividable() {
+        this.atm.withdraw(new Rub(512));
     }
 }
