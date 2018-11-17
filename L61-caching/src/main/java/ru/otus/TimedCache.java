@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import ru.otus.error.EmptyCacheElementException;
 import static java.util.Objects.isNull;
 
 public final class TimedCache<K, T> implements OtusCache<K, T>  {
@@ -42,21 +41,20 @@ public final class TimedCache<K, T> implements OtusCache<K, T>  {
     }
 
     @Override
-    public T get(K key) throws EmptyCacheElementException {
+    public T get(K key)  {
         final SoftReference<T> ref = this.cache.get(key);
         if (isNull(ref)) {
-            throw new EmptyCacheElementException(key.toString());
+            return null;
         }
         return ref.get();
     }
 
     @Override
-    public T getOrDefault(K key, T element) {
-        try {
-            return this.get(key);
-        } catch (EmptyCacheElementException e) {
+    public T getOrDefault(final K key, final T element) {
+        final T cached = this.get(key);
+        if (isNull(cached)) {
             this.put(key, element);
-            return element;
         }
+        return element;
     }
 }
