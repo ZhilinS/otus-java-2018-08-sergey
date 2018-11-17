@@ -20,7 +20,7 @@ public class OtusList<E> implements List<E> {
     }
 
     public OtusList(final int initialSize) {
-        this.elements = new Object[4];
+        this.elements = new Object[initialSize];
         this.size = 0;
     }
 
@@ -201,18 +201,6 @@ public class OtusList<E> implements List<E> {
         }
 
         return -1;
-    }
-
-    public void trim() {
-        if (size < elements.length) {
-            elements = Arrays.copyOf(elements, size);
-        }
-    }
-
-    @Override
-    public String toString() {
-        this.trim();
-        return Arrays.asList(elements).toString();
     }
 
     private class OtusListItr implements ListIterator<E> {
