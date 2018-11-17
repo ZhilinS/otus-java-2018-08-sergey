@@ -1,6 +1,5 @@
 package ru.otus;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
@@ -18,7 +17,7 @@ public abstract class Money {
         return this.type().equals(comparing.type());
     }
 
-    public Map<Integer, Integer> withdraw(Withdraw withdraw) {
+    Map<Integer, Integer> withdraw(Withdraw withdraw) {
         if (withdraw.amount() > this.amount()) {
             throw new WithdrawException("Not enough money on a bank account");
         }
@@ -49,7 +48,20 @@ public abstract class Money {
 
     abstract int amount();
 
-    abstract void deposit(Withdraw withdraw);
+    void deposit(Withdraw withdraw) {
+        int result = this.amount();
+        if (this.type().equals(withdraw.type())) {
+            result += withdraw.amount();
+            System.out.println(
+                String.format(
+                    "%d put on deposit. Balance: %d",
+                    withdraw.amount(),
+                    result
+                )
+            );
+            this.update(result);
+        }
+    }
 
     abstract void update(int amount);
 

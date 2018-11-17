@@ -4,7 +4,6 @@
 package ru.otus;
 
 import java.util.TreeSet;
-import ru.otus.withdraw.Withdraw;
 
 public class Rubles extends Money {
 
@@ -30,20 +29,6 @@ public class Rubles extends Money {
     @Override
     int amount() {
         return this.amount;
-    }
-
-    @Override
-    void deposit(final Withdraw withdraw) {
-        if (this.type.equals(withdraw.type())) {
-            this.amount += withdraw.amount();
-            System.out.println(
-                String.format(
-                    "%d put on deposit. Balance: %d",
-                    withdraw.amount(),
-                    this.amount
-                )
-            );
-        }
     }
 
     @Override
