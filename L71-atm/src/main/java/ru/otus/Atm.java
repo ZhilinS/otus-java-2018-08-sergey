@@ -4,9 +4,13 @@
 package ru.otus;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import ru.otus.exception.DepositException;
 import ru.otus.exception.WithdrawException;
+import ru.otus.money.Money;
+import ru.otus.money.Type;
 import ru.otus.withdraw.Withdraw;
 
 public final class Atm {
@@ -20,11 +24,17 @@ public final class Atm {
     }
 
     public void deposit(final Withdraw withdraw) {
-        this.moneys
+        final Optional<Money> money = this.moneys
             .stream()
             .filter(current -> current.type().equals(withdraw.type()))
-            .findFirst()
-            .ifPresent(current -> current.deposit(withdraw));
+            .findFirst();
+        if (money.isPresent()) {
+            money.get().deposit(withdraw);
+        } else {
+            throw new DepositException(
+                "Couldn't find corresponding cell in ATM"
+            );
+        }
     }
 
     public Map<Integer, Integer> withdraw(final Withdraw withdraw) {

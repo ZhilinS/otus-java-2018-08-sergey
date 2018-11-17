@@ -1,4 +1,4 @@
-package ru.otus;
+package ru.otus.money;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,9 +6,9 @@ import java.util.TreeSet;
 import ru.otus.exception.WithdrawException;
 import ru.otus.withdraw.Withdraw;
 
-abstract class Money {
+public abstract class Money {
 
-    Map<Integer, Integer> withdraw(Withdraw withdraw) {
+    public Map<Integer, Integer> withdraw(Withdraw withdraw) {
         if (withdraw.amount() > this.amount()) {
             throw new WithdrawException("Not enough money on a bank account");
         }
@@ -35,11 +35,7 @@ abstract class Money {
         return amounts;
     }
 
-    abstract Type type();
-
-    abstract int amount();
-
-    void deposit(Withdraw withdraw) {
+    public void deposit(Withdraw withdraw) {
         int result = this.amount();
         result += withdraw.amount();
         System.out.println(
@@ -51,6 +47,10 @@ abstract class Money {
         );
         this.update(result);
     }
+
+    public abstract Type type();
+
+    public abstract int amount();
 
     abstract void update(int amount);
 

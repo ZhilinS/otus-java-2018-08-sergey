@@ -1,14 +1,19 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeSet;
 import org.junit.Before;
 import org.junit.Test;
 import ru.otus.Atm;
-import ru.otus.Rubles;
-import ru.otus.Type;
+import ru.otus.exception.DepositException;
+import ru.otus.money.Dollars;
+import ru.otus.money.Euros;
+import ru.otus.money.Money;
+import ru.otus.money.Rubles;
+import ru.otus.money.Type;
 import ru.otus.exception.WithdrawException;
+import ru.otus.withdraw.Aud;
 import ru.otus.withdraw.Rub;
-import static com.google.common.collect.Sets.newHashSet;
 import static org.junit.Assert.assertEquals;
 
 public class TestAtm {
@@ -17,22 +22,45 @@ public class TestAtm {
 
     @Before
     public void setup() {
-        atm = new Atm(
-            newHashSet(
-                new Rubles(
-                    Type.RUR,
-                    new TreeSet<Integer>() {{
-                        add(5000);
-                        add(2000);
-                        add(1000);
-                        add(500);
-                        add(200);
-                        add(100);
-                    }},
-                    12000
-                )
+        final HashSet<Money> monies = new HashSet<>();
+        monies.add(
+            new Rubles(
+                new TreeSet<Integer>() {{
+                    add(5000);
+                    add(2000);
+                    add(1000);
+                    add(500);
+                    add(200);
+                    add(100);
+                }},
+                12000
             )
         );
+        monies.add(
+            new Euros(
+                new TreeSet<Integer>() {{
+                    add(500);
+                    add(200);
+                    add(100);
+                    add(50);
+                }},
+                4300
+            )
+        );
+        monies.add(
+            new Dollars(
+                new TreeSet<Integer>() {{
+                    add(500);
+                    add(200);
+                    add(100);
+                    add(50);
+                    add(10);
+                }},
+                25000
+            )
+        );
+
+        atm = new Atm(monies);
     }
 
     @Test
@@ -46,11 +74,9 @@ public class TestAtm {
 
     @Test
     public void testDeposit() {
-        final Map<Type, Integer> result = new HashMap<>();
-        result.put(Type.RUR, 14300);
         this.atm.deposit(new Rub(2300));
 
-        assertEquals(result, this.atm.balance());
+        assertEquals(14300, this.atm.balance().get(Type.RUR).intValue());
     }
 
     @Test(expected = WithdrawException.class)
@@ -61,5 +87,15 @@ public class TestAtm {
     @Test(expected = WithdrawException.class)
     public void shouldNotWithdrawForNonDividable() {
         this.atm.withdraw(new Rub(512));
+    }
+
+    @Test(expected = WithdrawException.class)
+    public void shouldNotWithdrawAud() {
+        this.atm.withdraw(new Aud(200));
+    }
+
+    @Test(expected = DepositException.class)
+    public void shouldNotDepositAud() {
+        this.atm.deposit(new Aud(200));
     }
 }

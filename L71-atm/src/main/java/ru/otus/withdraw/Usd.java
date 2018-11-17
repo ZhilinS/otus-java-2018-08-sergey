@@ -5,17 +5,17 @@ package ru.otus.withdraw;
 
 import ru.otus.money.Type;
 
-public final class Rub implements Withdraw {
+public final class Usd implements Withdraw {
 
     private final int amount;
 
-    public Rub(final int amount) {
+    public Usd(final int amount) {
         this.amount = amount;
     }
 
     @Override
     public Type type() {
-        return Type.RUR;
+        return Type.USD;
     }
 
     @Override

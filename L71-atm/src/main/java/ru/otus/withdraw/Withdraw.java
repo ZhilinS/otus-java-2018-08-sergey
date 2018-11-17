@@ -1,6 +1,6 @@
 package ru.otus.withdraw;
 
-import ru.otus.Type;
+import ru.otus.money.Type;
 
 public interface Withdraw {
 
