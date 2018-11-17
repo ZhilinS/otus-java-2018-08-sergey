@@ -6,16 +6,7 @@ import java.util.TreeSet;
 import ru.otus.exception.WithdrawException;
 import ru.otus.withdraw.Withdraw;
 
-public abstract class Money {
-
-    @Override
-    public boolean equals(final Object obj) {
-        if (!(obj instanceof Money)) {
-            return false;
-        }
-        final Money comparing = (Money) obj;
-        return this.type().equals(comparing.type());
-    }
+abstract class Money {
 
     Map<Integer, Integer> withdraw(Withdraw withdraw) {
         if (withdraw.amount() > this.amount()) {
@@ -32,7 +23,7 @@ public abstract class Money {
         Map<Integer, Integer> amounts = new HashMap<>();
         int retrieve = withdraw.amount();
         int result = this.amount();
-        for (Integer nominal:nominals().descendingSet()) {
+        for (Integer nominal : nominals().descendingSet()) {
             final int banknotes = retrieve / nominal;
             if (banknotes > 0) {
                 amounts.put(nominal, banknotes);
@@ -50,17 +41,15 @@ public abstract class Money {
 
     void deposit(Withdraw withdraw) {
         int result = this.amount();
-        if (this.type().equals(withdraw.type())) {
-            result += withdraw.amount();
-            System.out.println(
-                String.format(
-                    "%d put on deposit. Balance: %d",
-                    withdraw.amount(),
-                    result
-                )
-            );
-            this.update(result);
-        }
+        result += withdraw.amount();
+        System.out.println(
+            String.format(
+                "%d put on deposit. Balance: %d",
+                withdraw.amount(),
+                result
+            )
+        );
+        this.update(result);
     }
 
     abstract void update(int amount);

@@ -11,16 +11,16 @@ import ru.otus.withdraw.Withdraw;
 
 public final class Atm {
 
-    private final Set<Money> money;
+    private final Set<Money> moneys;
 
     public Atm(
-        final Set<Money> money
+        final Set<Money> moneys
     ) {
-        this.money = money;
+        this.moneys = moneys;
     }
 
     public void deposit(final Withdraw withdraw) {
-        this.money
+        this.moneys
             .stream()
             .filter(current -> current.type().equals(withdraw.type()))
             .findFirst()
@@ -28,7 +28,7 @@ public final class Atm {
     }
 
     public Map<Integer, Integer> withdraw(final Withdraw withdraw) {
-        return this.money
+        return this.moneys
             .stream()
             .filter(current -> current.type().equals(withdraw.type()))
             .findFirst()
@@ -39,7 +39,7 @@ public final class Atm {
     }
 
     public Map<Type, Integer> balance() {
-        return money
+        return moneys
             .stream()
             .collect(
                 Collectors.toMap(
