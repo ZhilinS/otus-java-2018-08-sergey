@@ -3,12 +3,7 @@
  */
 package ru.otus;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.TreeSet;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import ru.otus.exception.WithdrawException;
 import ru.otus.withdraw.Withdraw;
 
 public class Rubles extends Money {
@@ -25,32 +20,6 @@ public class Rubles extends Money {
         this.type = type;
         this.nominals = nominals;
         this.amount = amount;
-    }
-
-    @Override
-    public Map<Integer, Integer> withdraw(final Withdraw withdraw) {
-        if (withdraw.amount() > this.amount) {
-            throw new WithdrawException("Not enough money on a bank account");
-        }
-        if (withdraw.amount() % this.nominals.first() != 0) {
-            throw new WithdrawException(
-                String.format(
-                    "Please enter a sum dividable by %d",
-                    this.nominals.first()
-                )
-            );
-        }
-        Map<Integer, Integer> amounts = new HashMap<>();
-        int retrieve = withdraw.amount();
-        for (Integer nominal:nominals.descendingSet()) {
-            final int banknotes = retrieve / nominal;
-            if (banknotes > 0) {
-                amounts.put(nominal, banknotes);
-                amount -= banknotes * nominal;
-                retrieve -= banknotes * nominal;
-            }
-        }
-        return amounts;
     }
 
     @Override
@@ -75,5 +44,15 @@ public class Rubles extends Money {
                 )
             );
         }
+    }
+
+    @Override
+    void update(final int amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    TreeSet<Integer> nominals() {
+        return this.nominals;
     }
 }
