@@ -1,6 +1,3 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
 package ru.otus.money;
 
 import java.util.TreeSet;
