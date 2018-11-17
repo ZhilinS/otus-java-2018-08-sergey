@@ -45,6 +45,10 @@ public final class Atm {
             .withdraw(withdraw);
     }
 
+    public Set<Money> moneys() {
+        return this.moneys;
+    }
+
     public Map<Type, Integer> balance() {
         return moneys
             .stream()
