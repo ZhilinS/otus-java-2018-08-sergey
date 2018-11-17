@@ -8,6 +8,15 @@ import ru.otus.withdraw.Withdraw;
 
 public abstract class Money {
 
+    @Override
+    public String toString() {
+        return String.format(
+            "%s: %d",
+            this.type(),
+            this.amount()
+        );
+    }
+
     public Map<Integer, Integer> withdraw(Withdraw withdraw) {
         if (withdraw.amount() > this.amount()) {
             throw new WithdrawException("Not enough money on a bank account");
