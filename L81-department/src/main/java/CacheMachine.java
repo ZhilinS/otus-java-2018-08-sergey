@@ -34,4 +34,8 @@ public final class CacheMachine {
     public Snapshot snapshot() {
         return this.snapshot;
     }
+
+    public Atm atm() {
+        return this.atm;
+    }
 }

@@ -6,16 +6,16 @@ import ru.otus.money.Type;
 
 public final class Department {
 
-    private final Collection<CacheMachine> atms;
+    private final Collection<CacheMachine> machines;
 
     public Department(
-        final Collection<CacheMachine> atms
+        final Collection<CacheMachine> machines
     ) {
-        this.atms = atms;
+        this.machines = machines;
     }
 
     public Map<Type, Integer> balance() {
-        return this.atms
+        return this.machines
             .stream()
             .map(CacheMachine::balance)
             .map(Map::entrySet)
@@ -29,11 +29,15 @@ public final class Department {
     }
 
     public void reset() {
-        final Set<CacheMachine> machines = this.atms
+        final Set<CacheMachine> machines = this.machines
             .stream()
             .map(machine -> new CacheMachine(machine.snapshot()))
             .collect(Collectors.toSet());
-        this.atms.clear();
-        this.atms.addAll(machines);
+        this.machines.clear();
+        this.machines.addAll(machines);
+    }
+
+    public Collection<CacheMachine> machines() {
+        return this.machines;
     }
 }

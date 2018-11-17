@@ -5,6 +5,7 @@ import java.util.TreeSet;
 public final class Rubles extends Money {
 
     private final TreeSet<Integer> nominals;
+    private final int initial;
     private int amount;
 
     public Rubles(
@@ -13,6 +14,7 @@ public final class Rubles extends Money {
     ) {
         this.nominals = nominals;
         this.amount = amount;
+        this.initial = amount;
     }
 
     @Override
@@ -26,7 +28,12 @@ public final class Rubles extends Money {
     }
 
     @Override
-    void update(final int amount) {
+    public int initial() {
+        return this.initial;
+    }
+
+    @Override
+    public void update(final int amount) {
         this.amount = amount;
     }
 

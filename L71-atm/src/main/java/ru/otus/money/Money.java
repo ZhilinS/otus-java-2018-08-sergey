@@ -61,7 +61,9 @@ public abstract class Money {
 
     public abstract int amount();
 
-    abstract void update(int amount);
+    public abstract int initial();
+
+    public abstract void update(int amount);
 
     abstract TreeSet<Integer> nominals();
 }

@@ -19,6 +19,8 @@ public final class Snapshot {
     }
 
     public Set<Money> balance() {
+        this.monies
+            .forEach(money -> money.update(money.initial()));
         return this.monies;
     }
 }
