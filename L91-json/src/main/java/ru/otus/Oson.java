@@ -28,31 +28,31 @@ public final class Oson {
             final JsonArrayBuilder array = Json.createArrayBuilder();
             final Class<?> type = field.getType().getComponentType();
             if (type.equals(double.class)) {
-                for (double obj:(double[]) field.get(src)) {
+                for (double obj : (double[]) field.get(src)) {
                     array.add(obj);
                 }
             } else if (type.equals(int.class)) {
-                for (int obj:(int[]) field.get(src)) {
+                for (int obj : (int[]) field.get(src)) {
                     array.add(obj);
                 }
             } else if (type.equals(float.class)) {
-                for (float obj:(float[]) field.get(src)) {
+                for (float obj : (float[]) field.get(src)) {
                     array.add(obj);
                 }
             } else if (type.equals(long.class)) {
-                for (long obj:(long[]) field.get(src)) {
+                for (long obj : (long[]) field.get(src)) {
                     array.add(obj);
                 }
             } else if (type.equals(short.class)) {
-                for (short obj:(short[]) field.get(src)) {
+                for (short obj : (short[]) field.get(src)) {
                     array.add(obj);
                 }
             } else if (type.equals(byte.class)) {
-                for (byte obj:(byte[]) field.get(src)) {
+                for (byte obj : (byte[]) field.get(src)) {
                     array.add(obj);
                 }
             } else {
-                for (Object obj:(Object[]) field.get(src)) {
+                for (Object obj : (Object[]) field.get(src)) {
                     iterateThrough(array, obj);
                 }
             }
@@ -68,37 +68,27 @@ public final class Oson {
         if (field.getType().equals(int.class)) {
             builder.add(field.getName(), field.getInt(src));
         }
-        if (field.getType().equals(String.class)) {
-            builder.add(field.getName(), field.get(src).toString());
-        }
         if (field.getType().equals(long.class)) {
             builder.add(field.getName(), field.getLong(src));
         }
         if (field.getType().equals(double.class)) {
             builder.add(field.getName(), field.getDouble(src));
         }
-    }
-
-    private Iterable<? extends Object> decideClass(final Object o, final Class<?> type) {
-        if (type.equals(double.class)) {
-            return Collections.singleton((double[]) o);
+        if (field.getType().equals(float.class)) {
+            builder.add(field.getName(), field.getFloat(src));
         }
-        if (type.equals(int.class)) {
-            return Collections.singleton((int[]) o);
+        if (field.getType().equals(byte.class)) {
+            builder.add(field.getName(), field.getByte(src));
         }
-        if (type.equals(float.class)) {
-            return Collections.singleton((float[]) o);
+        if (field.getType().equals(short.class)) {
+            builder.add(field.getName(), field.getShort(src));
         }
-        if (type.equals(long.class)) {
-            return Collections.singleton((long[]) o);
+        if (field.getType().equals(boolean.class)) {
+            builder.add(field.getName(), field.getBoolean(src));
         }
-        if (type.equals(short.class)) {
-            return Collections.singleton((short[]) o);
+        if (field.getType().equals(String.class)) {
+            builder.add(field.getName(), field.get(src).toString());
         }
-        if (type.equals(byte.class)) {
-            return Collections.singleton((byte[]) o);
-        }
-        return Arrays.asList((Object[]) o);
     }
 
     private void iterateThrough(
@@ -123,6 +113,9 @@ public final class Oson {
         } else if (obj instanceof Byte
             || obj.getClass().equals(byte.class)) {
             array.add((byte) obj);
+        } else if (obj instanceof Boolean
+            || obj.getClass().equals(boolean.class)) {
+            array.add((boolean) obj);
         } else if (obj instanceof Character) {
             array.add(obj.toString());
         } else if (obj instanceof String) {
