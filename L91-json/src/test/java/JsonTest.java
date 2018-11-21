@@ -16,14 +16,13 @@ public class JsonTest {
     @Before
     public void setup() {
         final GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
         gson = builder.create();
 
         oson = new Oson();
     }
 
     @Test
-    public void shouldSerializeLikeGson() {
+    public void shouldSerializeLikeGson() throws IllegalAccessException {
         final Pojo pojo = new Pojo<OtherPojo>(
             "simple",
             42,
