@@ -1,6 +1,6 @@
-package ru.otus;
+package ru.otus.pojos;
 
-public class OtherPojo {
+public final class OtherPojo {
 
     private final String name;
     private final int count;

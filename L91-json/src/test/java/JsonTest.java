@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import ru.otus.Oson;
-import ru.otus.OtherPojo;
-import ru.otus.Pojo;
+import ru.otus.pojos.OtherPojo;
+import ru.otus.pojos.Pojo;
 import static org.junit.Assert.assertEquals;
 
 public class JsonTest {
