@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import ru.otus.Oson;
+import ru.otus.OtherPojo;
 import ru.otus.Pojo;
 import static org.junit.Assert.assertEquals;
 
@@ -23,13 +24,15 @@ public class JsonTest {
 
     @Test
     public void shouldSerializeLikeGson() {
-        final Pojo pojo = new Pojo(
+        final Pojo pojo = new Pojo<OtherPojo>(
             "simple",
             42,
             new ArrayList<Long>() {{
                 add(12L);
                 add(32L);
-            }}
+            }},
+            new double[] {12.2, 13.3, 14.4},
+            new OtherPojo[] { new OtherPojo("other", 11) }
         );
         assertEquals(gson.toJson(pojo), oson.toJson(pojo));
     }
