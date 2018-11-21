@@ -1,16 +1,17 @@
 package ru.otus.money;
 
+import java.util.Arrays;
 import java.util.TreeSet;
 
 public final class Euros extends Money {
 
-    private final TreeSet<Integer> nominals;
+    private final Integer[] nominals;
     private final int initial;
     private int amount;
 
     public Euros(
-        final TreeSet<Integer> nominals,
-        final int amount
+        final int amount,
+        final Integer... nominals
     ) {
         this.nominals = nominals;
         this.amount = amount;
@@ -39,6 +40,6 @@ public final class Euros extends Money {
 
     @Override
     TreeSet<Integer> nominals() {
-        return this.nominals;
+        return new TreeSet<>(Arrays.asList(this.nominals));
     }
 }

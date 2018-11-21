@@ -25,38 +25,20 @@ public class TestAtm {
         final HashSet<Money> monies = new HashSet<>();
         monies.add(
             new Rubles(
-                new TreeSet<Integer>() {{
-                    add(5000);
-                    add(2000);
-                    add(1000);
-                    add(500);
-                    add(200);
-                    add(100);
-                }},
-                12000
+                12000,
+                5000, 2000, 1000, 500, 200, 100
             )
         );
         monies.add(
             new Euros(
-                new TreeSet<Integer>() {{
-                    add(500);
-                    add(200);
-                    add(100);
-                    add(50);
-                }},
-                4300
+                4300,
+                500, 200, 100, 50
             )
         );
         monies.add(
             new Dollars(
-                new TreeSet<Integer>() {{
-                    add(500);
-                    add(200);
-                    add(100);
-                    add(50);
-                    add(10);
-                }},
-                25000
+                25000,
+                500, 200, 100, 50, 10
             )
         );
 
