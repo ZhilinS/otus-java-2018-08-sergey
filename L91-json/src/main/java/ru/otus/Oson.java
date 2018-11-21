@@ -1,9 +1,7 @@
 package ru.otus;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
@@ -24,71 +22,76 @@ public final class Oson {
         final JsonObjectBuilder builder
     ) throws IllegalAccessException {
         field.setAccessible(true);
-        if (field.getType().isArray()) {
-            final JsonArrayBuilder array = Json.createArrayBuilder();
-            final Class<?> type = field.getType().getComponentType();
-            if (type.equals(double.class)) {
-                for (double obj : (double[]) field.get(src)) {
-                    array.add(obj);
-                }
-            } else if (type.equals(int.class)) {
-                for (int obj : (int[]) field.get(src)) {
-                    array.add(obj);
-                }
-            } else if (type.equals(float.class)) {
-                for (float obj : (float[]) field.get(src)) {
-                    array.add(obj);
-                }
-            } else if (type.equals(long.class)) {
-                for (long obj : (long[]) field.get(src)) {
-                    array.add(obj);
-                }
-            } else if (type.equals(short.class)) {
-                for (short obj : (short[]) field.get(src)) {
-                    array.add(obj);
-                }
-            } else if (type.equals(byte.class)) {
-                for (byte obj : (byte[]) field.get(src)) {
-                    array.add(obj);
-                }
-            } else {
-                for (Object obj : (Object[]) field.get(src)) {
-                    iterateThrough(array, obj);
-                }
-            }
-            builder.add(field.getName(), array.build());
+        final Class<?> type = field.getType();
+        if (type.isArray()) {
+            builder.add(field.getName(), array(src, field).build());
         }
-        if (field.getType().equals(Collection.class)) {
+        if (type.equals(Collection.class)) {
             final JsonArrayBuilder array = Json.createArrayBuilder();
             for (Object obj : ((Collection) field.get(src))) {
                 iterateThrough(array, obj);
             }
             builder.add(field.getName(), array.build());
         }
-        if (field.getType().equals(int.class)) {
+        if (type.equals(int.class)) {
             builder.add(field.getName(), field.getInt(src));
         }
-        if (field.getType().equals(long.class)) {
+        if (type.equals(long.class)) {
             builder.add(field.getName(), field.getLong(src));
         }
-        if (field.getType().equals(double.class)) {
+        if (type.equals(double.class)) {
             builder.add(field.getName(), field.getDouble(src));
         }
-        if (field.getType().equals(float.class)) {
+        if (type.equals(float.class)) {
             builder.add(field.getName(), field.getFloat(src));
         }
-        if (field.getType().equals(byte.class)) {
+        if (type.equals(byte.class)) {
             builder.add(field.getName(), field.getByte(src));
         }
-        if (field.getType().equals(short.class)) {
+        if (type.equals(short.class)) {
             builder.add(field.getName(), field.getShort(src));
         }
-        if (field.getType().equals(boolean.class)) {
+        if (type.equals(boolean.class)) {
             builder.add(field.getName(), field.getBoolean(src));
         }
-        if (field.getType().equals(String.class)) {
+        if (type.equals(String.class)) {
             builder.add(field.getName(), field.get(src).toString());
         }
+    }
+
+    private JsonArrayBuilder array(final Object src, final Field field) throws IllegalAccessException {
+        final JsonArrayBuilder array = Json.createArrayBuilder();
+        final Class<?> type = field.getType().getComponentType();
+        if (type.equals(double.class)) {
+            for (double obj : (double[]) field.get(src)) {
+                array.add(obj);
+            }
+        } else if (type.equals(int.class)) {
+            for (int obj : (int[]) field.get(src)) {
+                array.add(obj);
+            }
+        } else if (type.equals(float.class)) {
+            for (float obj : (float[]) field.get(src)) {
+                array.add(obj);
+            }
+        } else if (type.equals(long.class)) {
+            for (long obj : (long[]) field.get(src)) {
+                array.add(obj);
+            }
+        } else if (type.equals(short.class)) {
+            for (short obj : (short[]) field.get(src)) {
+                array.add(obj);
+            }
+        } else if (type.equals(byte.class)) {
+            for (byte obj : (byte[]) field.get(src)) {
+                array.add(obj);
+            }
+        } else {
+            for (Object obj : (Object[]) field.get(src)) {
+                iterateThrough(array, obj);
+            }
+        }
+        return array;
     }
 
     private void iterateThrough(
