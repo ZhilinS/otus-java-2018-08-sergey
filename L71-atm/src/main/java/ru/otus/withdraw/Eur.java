@@ -2,7 +2,7 @@ package ru.otus.withdraw;
 
 import ru.otus.money.Type;
 
-public final class Eur implements Withdraw {
+public final class Eur implements Currency {
 
     private final int amount;
 

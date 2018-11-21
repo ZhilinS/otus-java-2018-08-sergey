@@ -2,7 +2,7 @@ package ru.otus.withdraw;
 
 import ru.otus.money.Type;
 
-public interface Withdraw {
+public interface Currency {
 
     Type type();
 

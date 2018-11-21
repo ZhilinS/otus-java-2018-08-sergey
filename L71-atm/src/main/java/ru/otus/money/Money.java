@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
 import ru.otus.exception.WithdrawException;
-import ru.otus.withdraw.Withdraw;
+import ru.otus.withdraw.Currency;
 
 public abstract class Money {
 
@@ -17,11 +17,11 @@ public abstract class Money {
         );
     }
 
-    public Map<Integer, Integer> withdraw(Withdraw withdraw) {
-        if (withdraw.amount() > this.amount()) {
+    public Map<Integer, Integer> withdraw(Currency currency) {
+        if (currency.amount() > this.amount()) {
             throw new WithdrawException("Not enough money on a bank account");
         }
-        if (withdraw.amount() % this.nominals().first() != 0) {
+        if (currency.amount() % this.nominals().first() != 0) {
             throw new WithdrawException(
                 String.format(
                     "Please enter a sum dividable by %d",
@@ -30,7 +30,7 @@ public abstract class Money {
             );
         }
         Map<Integer, Integer> amounts = new HashMap<>();
-        int retrieve = withdraw.amount();
+        int retrieve = currency.amount();
         int result = this.amount();
         for (Integer nominal : nominals().descendingSet()) {
             final int banknotes = retrieve / nominal;
@@ -44,13 +44,13 @@ public abstract class Money {
         return amounts;
     }
 
-    public void deposit(Withdraw withdraw) {
+    public void deposit(Currency currency) {
         int result = this.amount();
-        result += withdraw.amount();
+        result += currency.amount();
         System.out.println(
             String.format(
                 "%d put on deposit. Balance: %d",
-                withdraw.amount(),
+                currency.amount(),
                 result
             )
         );

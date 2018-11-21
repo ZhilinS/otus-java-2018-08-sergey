@@ -8,7 +8,7 @@ import ru.otus.exception.DepositException;
 import ru.otus.exception.WithdrawException;
 import ru.otus.money.Money;
 import ru.otus.money.Type;
-import ru.otus.withdraw.Withdraw;
+import ru.otus.withdraw.Currency;
 
 public final class Atm {
 
@@ -20,13 +20,13 @@ public final class Atm {
         this.moneys = moneys;
     }
 
-    public void deposit(final Withdraw withdraw) {
+    public void deposit(final Currency currency) {
         final Optional<Money> money = this.moneys
             .stream()
-            .filter(current -> current.type().equals(withdraw.type()))
+            .filter(current -> current.type().equals(currency.type()))
             .findFirst();
         if (money.isPresent()) {
-            money.get().deposit(withdraw);
+            money.get().deposit(currency);
         } else {
             throw new DepositException(
                 "Couldn't find corresponding cell in ATM"
@@ -34,15 +34,15 @@ public final class Atm {
         }
     }
 
-    public Map<Integer, Integer> withdraw(final Withdraw withdraw) {
+    public Map<Integer, Integer> withdraw(final Currency currency) {
         return this.moneys
             .stream()
-            .filter(current -> current.type().equals(withdraw.type()))
+            .filter(current -> current.type().equals(currency.type()))
             .findFirst()
             .orElseThrow(
                 () -> new WithdrawException("Couldn't find matching money type")
             )
-            .withdraw(withdraw);
+            .withdraw(currency);
     }
 
     public Set<Money> moneys() {
