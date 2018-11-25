@@ -86,6 +86,10 @@ public final class Oson {
             for (byte obj : (byte[]) field.get(src)) {
                 array.add(obj);
             }
+        } else if (type.equals(boolean.class)) {
+            for (boolean obj : (boolean[]) field.get(src)) {
+                array.add(obj);
+            }
         } else {
             for (Object obj : (Object[]) field.get(src)) {
                 iterateThrough(array, obj);

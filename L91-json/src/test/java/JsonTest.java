@@ -23,7 +23,7 @@ public class JsonTest {
 
     @Test
     public void shouldSerializeLikeGson() throws IllegalAccessException {
-        final Pojo pojo = new Pojo<OtherPojo>(
+        final Pojo pojo = new Pojo<>(
             "simple",
             42,
             new ArrayList<Long>() {{
