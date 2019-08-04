@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.cactoos.Scalar;
 
 public final class Sorting implements Scalar<int[]> {
@@ -24,18 +26,9 @@ public final class Sorting implements Scalar<int[]> {
 
     @Override
     public int[] value() throws Exception {
-        final int chunk = this.numbers.value().length / this.threads.value();
-        int start = 0;
         final List<Thread> runners = new ArrayList<>(this.threads.value());
-        final List<int[]> parts = new ArrayList<>(
-            this.numbers.value().length
-        );
-        for (int i = 0; i < this.threads.value(); i++) {
-            final int[] part = Arrays.copyOfRange(
-                this.numbers.value(),
-                start,
-                start += chunk
-            );
+        final List<int[]> parts = new ArrayList<>(this.numbers.value().length);
+        for (int[] part : divided()) {
             runners.add(
                 new Thread(() -> {
                     Arrays.sort(part);
@@ -57,7 +50,19 @@ public final class Sorting implements Scalar<int[]> {
         return parts.stream()
             .flatMapToInt(Arrays::stream)
             .toArray();
+    }
 
-
+    private List<int[]> divided() throws Exception {
+        final int[] nums = this.numbers.value();
+        final int chunk = nums.length / this.threads.value();
+        return IntStream.range(0, this.threads.value())
+            .boxed()
+            .map(i -> Arrays.copyOfRange(
+                        nums,
+                        chunk * i,
+                        chunk * (i + 1)
+                    )
+            )
+            .collect(Collectors.toList());
     }
 }
