@@ -6,8 +6,7 @@ package ru.otus;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Stream;
+import java.util.Random;
 import org.cactoos.Scalar;
 
 public final class Sorting implements Scalar<int[]> {
@@ -28,7 +27,7 @@ public final class Sorting implements Scalar<int[]> {
         final int chunk = this.numbers.value().length / this.threads.value();
         int start = 0;
         final List<Thread> runners = new ArrayList<>(this.threads.value());
-        final List<Integer> parts = new ArrayList<>(
+        final List<int[]> parts = new ArrayList<>(
             this.numbers.value().length
         );
         for (int i = 0; i < this.threads.value(); i++) {
@@ -37,17 +36,28 @@ public final class Sorting implements Scalar<int[]> {
                 start,
                 start += chunk
             );
-            runners.add(new Thread(() -> {
-                Arrays.sort(part);
-                for (int j:part) {
-                    parts.add(j);
-                }
-            }));
+            runners.add(
+                new Thread(() -> {
+                    Arrays.sort(part);
+                    try {
+                        Thread.sleep(new Random().nextInt(3000));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                })
+            );
+            parts.add(part);
         }
         for (Thread runner : runners) {
-            runner.run();
+            runner.start();
+        }
+        for (Thread runner : runners) {
             runner.join();
         }
-        return parts.stream().mapToInt(i -> i).toArray();
+        return parts.stream()
+            .flatMapToInt(Arrays::stream)
+            .toArray();
+
+
     }
 }

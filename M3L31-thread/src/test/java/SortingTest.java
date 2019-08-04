@@ -23,8 +23,6 @@ public class SortingTest {
         );
         final int[] sorted = numbers.value();
         Arrays.sort(sorted);
-        System.out.println(Arrays.toString(sorted));
-        System.out.println(Arrays.toString(sorting.value()));
         assertArrayEquals(sorted, sorting.value());
     }
 }
