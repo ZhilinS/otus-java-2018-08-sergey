@@ -3,8 +3,6 @@
  */
 package models;
 
-import java.sql.ResultSet;
-
 public final class UserDataSet extends DataSet {
 
     private long id;
