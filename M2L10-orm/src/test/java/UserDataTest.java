@@ -2,7 +2,9 @@
  * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
  */
 
-import models.UserDataSet;
+import ru.otus.DBExecutor;
+import ru.otus.UserDBExecutor;
+import ru.otus.models.UserDataSet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

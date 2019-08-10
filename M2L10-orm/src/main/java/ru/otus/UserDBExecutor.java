@@ -1,8 +1,6 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
+package ru.otus;
 
-import models.UserDataSet;
+import ru.otus.models.UserDataSet;
 
 public final class UserDBExecutor {
 

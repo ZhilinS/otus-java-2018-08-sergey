@@ -1,15 +1,13 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
+package ru.otus;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import models.DataSet;
 import org.postgresql.Driver;
 import org.postgresql.ds.PGConnectionPoolDataSource;
+import ru.otus.models.DataSet;
 
 public final class DBExecutor<T extends DataSet> {
 

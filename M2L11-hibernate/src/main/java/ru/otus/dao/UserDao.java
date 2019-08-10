@@ -1,18 +1,20 @@
-/*
+package ru.otus.dao;/*
  * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
  */
 
-import models.HiberUserDataSet;
+import ru.otus.HibernateExecutor;
+import ru.otus.SessionConfig;
+import ru.otus.dataset.HiberUserDataSet;
 
-public final class UserService {
+public final class UserDao {
 
     private final HibernateExecutor<HiberUserDataSet> executor;
 
-    public UserService() {
+    public UserDao() {
         this(new HibernateExecutor<>(new SessionConfig()));
     }
 
-    public UserService(final HibernateExecutor<HiberUserDataSet> executor) {
+    public UserDao(final HibernateExecutor<HiberUserDataSet> executor) {
         this.executor = executor;
     }
 

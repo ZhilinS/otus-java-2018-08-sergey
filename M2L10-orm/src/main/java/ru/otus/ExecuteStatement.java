@@ -1,3 +1,5 @@
+package ru.otus;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

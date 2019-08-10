@@ -1,7 +1,4 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
-package models;
+package ru.otus.models;
 
 public final class UserDataSet extends DataSet {
 

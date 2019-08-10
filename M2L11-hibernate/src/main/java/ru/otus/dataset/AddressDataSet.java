@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
  */
-package models;
+package ru.otus.dataset;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

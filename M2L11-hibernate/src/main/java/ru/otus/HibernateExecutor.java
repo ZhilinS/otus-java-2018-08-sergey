@@ -1,8 +1,8 @@
-/*
+package ru.otus;/*
  * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
  */
 
-import models.HiberDataSet;
+import ru.otus.dataset.HiberDataSet;
 import org.hibernate.Session;
 
 public final class HibernateExecutor<T extends HiberDataSet> {

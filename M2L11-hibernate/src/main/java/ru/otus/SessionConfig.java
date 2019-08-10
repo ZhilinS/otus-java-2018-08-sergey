@@ -1,12 +1,12 @@
-/*
+package ru.otus;/*
  * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
  */
 
-import models.AddressDataSet;
-import models.HiberUserDataSet;
-import models.PhoneDataSet;
+import ru.otus.dataset.AddressDataSet;
+import ru.otus.dataset.AdminDataSet;
+import ru.otus.dataset.HiberUserDataSet;
+import ru.otus.dataset.PhoneDataSet;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -33,6 +33,7 @@ public final class SessionConfig {
         config.addAnnotatedClass(HiberUserDataSet.class);
         config.addAnnotatedClass(PhoneDataSet.class);
         config.addAnnotatedClass(AddressDataSet.class);
+        config.addAnnotatedClass(AdminDataSet.class);
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .applySettings(config.getProperties())
             .build();
