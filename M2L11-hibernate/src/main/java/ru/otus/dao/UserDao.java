@@ -1,6 +1,4 @@
-package ru.otus.dao;/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
+package ru.otus.dao;
 
 import ru.otus.HibernateExecutor;
 import ru.otus.SessionConfig;
@@ -24,5 +22,9 @@ public final class UserDao {
 
     public HiberUserDataSet get(final Long id) {
         return this.executor.load(HiberUserDataSet.class, id);
+    }
+
+    public HiberUserDataSet byName(final String name) {
+        return this.executor.byName(HiberUserDataSet.class, name);
     }
 }

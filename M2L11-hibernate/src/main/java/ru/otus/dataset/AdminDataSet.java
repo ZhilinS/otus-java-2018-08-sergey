@@ -40,4 +40,12 @@ public class AdminDataSet extends HiberDataSet {
         this.password = password;
         this.user = user;
     }
+
+    public boolean admin() {
+        return this.admin;
+    }
+
+    public String password() {
+        return this.password;
+    }
 }

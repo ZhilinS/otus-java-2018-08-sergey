@@ -29,7 +29,7 @@ public final class SessionConfig {
             .setProperty("hibernate.show_sql", "true")
             .setProperty("hibernate.connection.useSSL", "false")
             .setProperty("hibernate.enable_lazy_load_no_trans", "true")
-            .setProperty("hibernate.hbm2ddl.auto", "create-drop");
+            .setProperty("hibernate.hbm2ddl.auto", "validate");
         config.addAnnotatedClass(HiberUserDataSet.class);
         config.addAnnotatedClass(PhoneDataSet.class);
         config.addAnnotatedClass(AddressDataSet.class);

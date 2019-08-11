@@ -12,15 +12,12 @@ import ru.otus.dataset.AddressDataSet;
 import ru.otus.dataset.AdminDataSet;
 import ru.otus.dataset.HiberUserDataSet;
 import ru.otus.dataset.PhoneDataSet;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class BaseTest {
 
-    private HiberUserDataSet user;
-
-    @Before
-    public void setUp() {
+    @Test
+    public void userSaveLoad() {
         final HiberUserDataSet user = new HiberUserDataSet(
             "Sergey",
             27,
@@ -32,13 +29,8 @@ public class BaseTest {
         user.setPhone(
             new ListOf<>(first, second)
         );
-        this.user = user;
-    }
-
-    @Test
-    public void userSaveLoad() {
         final UserDao service = new UserDao();
-        service.save(this.user);
+        service.save(user);
         final HiberUserDataSet fetched = service.get(1L);
         assertNotNull(fetched);
         assertEquals("Some address", fetched.address().address());
@@ -46,15 +38,22 @@ public class BaseTest {
 
     @Test
     public void adminCreated() {
-        final UserDao userService = new UserDao();
+        final UserDao service = new UserDao();
         final AdminDao adminService = new AdminDao();
-        userService.save(this.user);
+        final HiberUserDataSet fetched = service.get(1L);
         adminService.save(
             new AdminDataSet(
                 true,
                 "strongPassword",
-                this.user
+                fetched
             )
         );
+    }
+
+//    @Test
+    public void byName() {
+        final UserDao service = new UserDao();
+        final HiberUserDataSet user = service.byName("Sergey");
+        assertSame(1L, user.getId());
     }
 }

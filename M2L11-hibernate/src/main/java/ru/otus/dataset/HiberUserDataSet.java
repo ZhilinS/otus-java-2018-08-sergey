@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class HiberUserDataSet extends HiberDataSet {
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
     @Column(name = "age")
