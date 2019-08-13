@@ -43,7 +43,7 @@ public final class Login extends HttpServlet {
             if (!admin.password().equals(req.getParameter("psw"))) {
                 throw new RuntimeException("Wrong password");
             }
-            resp.addCookie(new Cookie("authorized", Login.AUTHORIZED));
+            resp.addCookie(new Cookie("session_id", Login.AUTHORIZED));
             if (admin.admin()) {
                 req.getSession()
                     .setAttribute("admin", true);
