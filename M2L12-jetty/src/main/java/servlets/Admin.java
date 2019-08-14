@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 import javax.servlet.http.HttpServlet;
@@ -43,12 +42,7 @@ public final class Admin extends HttpServlet {
         final HttpServletRequest req,
         final HttpServletResponse resp
     ) throws IOException {
-        try {
-            check(req);
-        } catch (final Exception error) {
-            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            resp.sendRedirect("/error");
-        }
+        check(req, resp);
         resp.getWriter().write(
             templates.apply(
                 Admin.TEMPLATE,
@@ -59,18 +53,24 @@ public final class Admin extends HttpServlet {
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 
-    private void check(final HttpServletRequest req) throws IllegalAccessException {
-        Stream.ofNullable(req.getCookies())
-            .flatMap(Arrays::stream)
-            .filter(cookie -> cookie.getName().equals("session_id"))
-            .filter(cookie -> cookie.getValue().equals(Admin.AUTHORIZED))
-            .findFirst()
-            .orElseThrow(LoggedInException::new);
-        Optional.ofNullable(
-            req.getSession()
-        )
-            .map(session -> session.getAttribute("admin"))
-            .filter(attr -> attr.equals(true))
-            .orElseThrow(IllegalAccessException::new);
+    private void check(
+        final HttpServletRequest req,
+        final HttpServletResponse resp
+    ) throws IOException {
+        try {
+            Stream.ofNullable(req.getCookies())
+                .flatMap(Arrays::stream)
+                .filter(cookie -> cookie.getName().equals("session_id"))
+                .filter(cookie -> cookie.getValue().equals(Admin.AUTHORIZED))
+                .findFirst()
+                .orElseThrow(LoggedInException::new);
+            Optional.ofNullable(req.getSession())
+                .map(session -> session.getAttribute("admin"))
+                .filter(attr -> attr.equals(true))
+                .orElseThrow(IllegalAccessException::new);
+        } catch (final Exception error) {
+            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            resp.sendRedirect("/error");
+        }
     }
 }
