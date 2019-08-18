@@ -12,7 +12,7 @@ import ru.otus.templatets.Templates;
 public final class ErrorServlet extends HttpServlet {
 
 
-    private static final String TEMPLATE = "ru.otus.error.ftl";
+    private static final String TEMPLATE = "error.ftl";
 
     private final UncheckedBiFunc<String, Map<String, Object>, String> templates;
 

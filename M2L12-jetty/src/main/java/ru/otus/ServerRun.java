@@ -10,14 +10,14 @@ public class ServerRun {
     private static int PORT = 8090;
 
     public static void main(String[] args) throws Exception {
-//        final Server server = new Server(ServerRun.PORT);
-//        server.setHandler(
-//            new HandlerList(
-//                new Resource().value(),
-//                new Servlets().value()
-//            )
-//        );
-//        server.start();
-//        server.join();
+        final Server server = new Server(ServerRun.PORT);
+        server.setHandler(
+            new HandlerList(
+                new Resource().value(),
+                new Servlets().value()
+            )
+        );
+        server.start();
+        server.join();
     }
 }
