@@ -9,6 +9,6 @@
 </head>
 <body>
 ERROR.
-<a href="/public_html">GO BACK</a>
+<a href="/">GO BACK</a>
 </body>
 </html>

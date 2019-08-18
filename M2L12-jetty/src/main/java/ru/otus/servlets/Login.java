@@ -6,6 +6,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.otus.dao.AdminDao;
 import ru.otus.dao.UserDao;
 import ru.otus.dataset.AdminDataSet;
@@ -19,12 +21,11 @@ public final class Login extends HttpServlet {
     private final AdminDao adminService;
 
     public Login() {
-        this(new UserDao(), new AdminDao());
-    }
-
-    public Login(final UserDao userService, final AdminDao adminService) {
-        this.userService = userService;
-        this.adminService = adminService;
+        final ApplicationContext context = new ClassPathXmlApplicationContext(
+            "SpringBeans.xml"
+        );
+        this.userService = context.getBean("userService", UserDao.class);
+        this.adminService = context.getBean("adminService", AdminDao.class);
     }
 
     @Override

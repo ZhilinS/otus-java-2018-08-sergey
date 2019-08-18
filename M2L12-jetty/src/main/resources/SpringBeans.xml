@@ -6,4 +6,10 @@
     <bean id="timer" class="ru.otus.beans.TimeService">
         <property name="pattern" value="HH@mm@ss" />
     </bean>
+
+    <bean id="userService" class="ru.otus.dao.UserDao">
+    </bean>
+
+    <bean id="adminService" class="ru.otus.dao.AdminDao">
+    </bean>
 </beans>
