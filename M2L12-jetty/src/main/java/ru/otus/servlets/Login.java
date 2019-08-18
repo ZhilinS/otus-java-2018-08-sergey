@@ -48,7 +48,7 @@ public final class Login extends HttpServlet {
         } catch (final Exception error) {
             error.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.sendRedirect("/ru/otus/error");
+            resp.sendRedirect("/error");
         }
     }
 }

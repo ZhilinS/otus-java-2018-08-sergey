@@ -67,7 +67,7 @@ public final class Admin extends HttpServlet {
                 .orElseThrow(IllegalAccessException::new);
         } catch (final Exception error) {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            resp.sendRedirect("/ru/otus/error");
+            resp.sendRedirect("/error");
         }
     }
 }
