@@ -1,7 +1,4 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
-package handlers;
+package ru.otus.handlers;
 
 import java.util.Objects;
 import org.cactoos.Scalar;

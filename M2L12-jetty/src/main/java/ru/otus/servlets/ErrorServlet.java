@@ -1,7 +1,4 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
-package servlets;
+package ru.otus.servlets;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,12 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.cactoos.func.UncheckedBiFunc;
-import templatets.Templates;
+import ru.otus.templatets.Templates;
 
 public final class ErrorServlet extends HttpServlet {
 
 
-    private static final String TEMPLATE = "error.ftl";
+    private static final String TEMPLATE = "ru.otus.error.ftl";
 
     private final UncheckedBiFunc<String, Map<String, Object>, String> templates;
 

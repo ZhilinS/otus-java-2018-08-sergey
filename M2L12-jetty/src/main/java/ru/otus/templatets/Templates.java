@@ -1,11 +1,7 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
-package templatets;
+package ru.otus.templatets;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;

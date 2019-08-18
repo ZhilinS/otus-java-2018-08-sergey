@@ -1,7 +1,4 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
-package servlets;
+package ru.otus.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -51,7 +48,7 @@ public final class Login extends HttpServlet {
         } catch (final Exception error) {
             error.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.sendRedirect("/error");
+            resp.sendRedirect("/ru/otus/error");
         }
     }
 }

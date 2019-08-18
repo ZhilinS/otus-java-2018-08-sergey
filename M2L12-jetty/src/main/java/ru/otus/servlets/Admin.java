@@ -1,9 +1,6 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
-package servlets;
+package ru.otus.servlets;
 
-import error.LoggedInException;
+import ru.otus.error.LoggedInException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.cactoos.func.UncheckedBiFunc;
-import templatets.Templates;
+import ru.otus.templatets.Templates;
 
 public final class Admin extends HttpServlet {
 
@@ -70,7 +67,7 @@ public final class Admin extends HttpServlet {
                 .orElseThrow(IllegalAccessException::new);
         } catch (final Exception error) {
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            resp.sendRedirect("/error");
+            resp.sendRedirect("/ru/otus/error");
         }
     }
 }

@@ -1,7 +1,4 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
-package error;
+package ru.otus.error;
 
 public final class LoggedInException extends RuntimeException {
 

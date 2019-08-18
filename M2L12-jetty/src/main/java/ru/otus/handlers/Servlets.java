@@ -1,14 +1,11 @@
-/*
- * Copyright (C) 2018, SEMRUSH CY LTD or it's affiliates
- */
-package handlers;
+package ru.otus.handlers;
 
 import org.cactoos.Scalar;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import servlets.Admin;
-import servlets.ErrorServlet;
-import servlets.Login;
+import ru.otus.servlets.Admin;
+import ru.otus.servlets.ErrorServlet;
+import ru.otus.servlets.Login;
 
 public final class Servlets implements Scalar<Handler> {
 
