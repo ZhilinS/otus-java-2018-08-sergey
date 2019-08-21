@@ -16,6 +16,8 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 @WebSocket
 public final class NameServlet extends WebSocketServlet {
 
+    private static final String DB_SERVLET = "ws://localhost:8091/db";
+
     private Session session;
 
     @OnWebSocketConnect
@@ -32,12 +34,14 @@ public final class NameServlet extends WebSocketServlet {
     @OnWebSocketMessage
     public void acquire(final String message) throws Exception {
         final WebSocketClient client = new WebSocketClient();
-        final SocketClient socket = new SocketClient();
         try {
+            final SocketClient socket = new SocketClient();
             client.start();
-            URI echoUri = new URI("ws://localhost:8091/db");
-            client.connect(socket, echoUri, new ClientUpgradeRequest());
-            System.out.printf("Connecting to: %s", echoUri);
+            client.connect(
+                socket,
+                new URI(NameServlet.DB_SERVLET),
+                new ClientUpgradeRequest()
+            );
             socket.send(message);
         } finally {
             client.stop();

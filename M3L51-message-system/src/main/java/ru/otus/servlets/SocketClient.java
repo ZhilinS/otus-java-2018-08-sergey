@@ -60,4 +60,8 @@ public final class SocketClient {
             this.lock.unlock();
         }
     }
+
+    public boolean connected() {
+        return this.sessions.size() > 0;
+    }
 }
