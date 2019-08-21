@@ -6,6 +6,26 @@
     <display-name>L51-message-service</display-name>
     <description>Frontend part of the message service</description>
 
+    <servlet>
+        <servlet-name>name</servlet-name>
+        <servlet-class>ru.otus.servlets.NameServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>name</servlet-name>
+        <url-pattern>/name</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>db</servlet-name>
+        <servlet-class>ru.otus.servlets.DbSocket</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>db</servlet-name>
+        <url-pattern>/db</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
