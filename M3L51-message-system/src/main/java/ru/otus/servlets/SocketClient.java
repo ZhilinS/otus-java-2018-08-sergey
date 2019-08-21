@@ -46,6 +46,10 @@ public final class SocketClient {
         this.sessions.put(session);
     }
 
+    public void close() {
+        this.sessions.remove();
+    }
+
     public void send(final String message)
         throws IOException, InterruptedException {
         this.lock.lock();
