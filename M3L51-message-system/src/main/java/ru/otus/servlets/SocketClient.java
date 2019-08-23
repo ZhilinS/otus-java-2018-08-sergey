@@ -20,29 +20,39 @@ public final class SocketClient {
 
     private final Lock lock;
 
-    private final BlockingQueue<Session> sessions = new LinkedBlockingQueue<>(1);
+    private final BlockingQueue<Session> sessions;
+    private final BlockingQueue<String> messages;
 
     public SocketClient() {
-        this(new ReentrantLock());
+        this(
+            new LinkedBlockingQueue<>(1),
+            new LinkedBlockingQueue<>(1),
+            new ReentrantLock()
+        );
     }
 
-    public SocketClient(final Lock lock) {
+    public SocketClient(final BlockingQueue<String> messages) {
+        this(new LinkedBlockingQueue<>(1), messages, new ReentrantLock());
+    }
+
+    public SocketClient(
+        final BlockingQueue<Session> sessions,
+        final BlockingQueue<String> messages,
+        final Lock lock
+    ) {
+        this.sessions = sessions;
+        this.messages = messages;
         this.lock = lock;
     }
 
     @OnWebSocketMessage
-    public void message(final String message) {
-        System.out.println(message);
+    public void message(final String message)
+        throws IOException, InterruptedException {
+        this.messages.put(message);
     }
 
     @OnWebSocketConnect
     public void connect(final Session session) throws InterruptedException {
-        System.out.println(
-            String.format(
-                "Client connected to %s",
-                session.getRemoteAddress().getAddress()
-            )
-        );
         this.sessions.put(session);
     }
 
@@ -63,9 +73,5 @@ public final class SocketClient {
         } finally {
             this.lock.unlock();
         }
-    }
-
-    public boolean connected() {
-        return this.sessions.size() > 0;
     }
 }

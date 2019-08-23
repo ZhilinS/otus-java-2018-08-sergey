@@ -4,6 +4,9 @@
 package ru.otus.servlets;
 
 import java.net.URI;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import javax.servlet.ServletException;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -19,43 +22,43 @@ public final class NameServlet extends WebSocketServlet {
 
     private static final String DB_SERVLET = "ws://localhost:8091/db";
 
-    private Session session;
-    private SocketClient socket;
-    private WebSocketClient client;
+    private final BlockingQueue<String> messages;
+    private final SocketClient socket;
+    private final WebSocketClient client;
+
+    public NameServlet() {
+        this.messages = new LinkedBlockingQueue<>(1);
+        this.socket = new SocketClient(this.messages);
+        this.client = new WebSocketClient();
+    }
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+    }
 
     @OnWebSocketConnect
     public void connect(final Session session) throws Exception {
-        System.out.println(
-            String.format(
-                "Connected to %s",
-                session
-            )
-        );
-        this.session = session;
-        this.client = new WebSocketClient();
-        this.socket = new SocketClient();
-        this.client.start();
-        this.client.connect(
-            this.socket,
-            new URI(NameServlet.DB_SERVLET),
-            new ClientUpgradeRequest()
-        );
+        try {
+            this.client.start();
+            this.client.connect(
+                this.socket,
+                new URI(NameServlet.DB_SERVLET),
+                new ClientUpgradeRequest()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnWebSocketMessage
-    public void acquire(final String message) throws Exception {
+    public void onMessage(final Session session, final String message) throws Exception {
         this.socket.send(message);
+        session.getRemote().sendString(this.messages.take());
     }
 
     @OnWebSocketClose
     public void close(final int code, final String message) throws Exception {
-        System.out.println(
-            String.format(
-                "Closing NameWebsocket. %d. %s",
-                code,
-                message
-            )
-        );
         this.socket.close();
         this.client.stop();
     }
